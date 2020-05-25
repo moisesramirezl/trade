@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'stocksList.apps.StockslistConfig',
     'trade'
 ]
 
@@ -97,7 +98,7 @@ if os.getenv('GAE_APPLICATION', None):
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/trade-278014:southamerica-east1:tradedb',
             'USER': 'root',
-            'PASSWORD': 'rootpass',
+            'PASSWORD': 'rootpass   ',
             'NAME': 'trade',
         }
     }
