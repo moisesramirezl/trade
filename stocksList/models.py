@@ -13,8 +13,8 @@ class Users(models.Model):
     def __str__(self):
         return self.username
 
-class UserStocks(models.Model):
-    user_id = models.ForeignKey(Users, on_delete=models.PROTECT, primary_key=True, unique=True)
+class StocksList(models.Model):
+    user_id = models.ForeignKey(Users, on_delete=models.PROTECT)
     nemo_id = models.ForeignKey(Nemos, on_delete=models.PROTECT)
     quantity = models.IntegerField()
     price =  models.DecimalField(max_digits=10, decimal_places=2, default=0)

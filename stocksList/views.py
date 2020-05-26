@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import UserStocks
+from .models import StocksList
 
 
 def index(request):
-    latest_stocks_list = UserStocks.objects.order_by('-timestamp')[:5]
+    latest_stocks_list = StocksList.objects.order_by('-timestamp')[:5]
     template = loader.get_template('stocksList/index.html')
     context = {
         'latest_stocks_list': latest_stocks_list,
