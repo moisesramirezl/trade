@@ -32,7 +32,7 @@ SECRET_KEY = 'c=2xeuv@w01ug@2#6+_el1jz5s5lug*q)5e$$pelyi=#kh7(+1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['trade-278014.rj.r.appspot.com', '127.0.0.1']
+ALLOWED_HOSTS = ['trade-278014.rj.r.appspot.com', '127.0.0.1', '20200526t105259-dot-trade-278014.rj.r.appspot.com']
 
 # Application definition
 
@@ -93,10 +93,11 @@ pymysql.install_as_MySQLdb()
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    #mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=/cloudsql/<cloud_sql_instance_name>
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/trade-278014:southamerica-east1:tradedb',
+            'HOST': '/cloudsql/mysql+pymysql://root:rootpass@/tradedb?unix_socket=/cloudsql/trade-278014:southamerica-east1:tradedb',
             'USER': 'root',
             'PASSWORD': 'rootpass   ',
             'NAME': 'trade',
