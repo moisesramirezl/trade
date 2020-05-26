@@ -1,0 +1,9 @@
+{% if latest_stocks_list %}
+    <ul>
+    {% for stocks in latest_stocks_list %}
+        <li><a href="/stocksList/{{ stocks.user_id }}/">{{ stocks.user_id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No stocks are available.</p>
+{% endif %}
