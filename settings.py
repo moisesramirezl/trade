@@ -35,6 +35,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['trade-278014.rj.r.appspot.com', '127.0.0.1',
                  '20200526t105259-dot-trade-278014.rj.r.appspot.com']
 
+# For google login
 SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
@@ -50,11 +51,10 @@ INSTALLED_APPS = [
     'stocksList.apps.StockslistConfig',
     'trade',
     'django.contrib.sites',
-
-    'allauth',   # <--
-    'allauth.account',   # <--
-    'allauth.socialaccount',   # <--
-    'allauth.socialaccount.providers.google',   # <--
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -116,6 +116,7 @@ pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
 pymysql.install_as_MySQLdb()
 
 # [START db_setup]
+# TODO hide secrets
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
