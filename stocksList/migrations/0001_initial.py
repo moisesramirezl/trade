@@ -24,19 +24,24 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('username', models.CharField(max_length=200)),
-                ('email', models.EmailField(blank=True, max_length=70, null=True, unique=True)),
+                ('email', models.EmailField(blank=True,
+                                            max_length=70, null=True, unique=True)),
             ],
         ),
         migrations.CreateModel(
             name='UserStocks',
             fields=[
-                ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, primary_key=True, serialize=False, to='stocksList.Users')),
+                ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
+                                              primary_key=True, serialize=False, to='stocksList.Users')),
                 ('quantity', models.IntegerField()),
-                ('price', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('tax', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
+                ('price', models.DecimalField(
+                    decimal_places=2, default=0, max_digits=10)),
+                ('tax', models.DecimalField(
+                    decimal_places=2, default=0, max_digits=10)),
                 ('purchase_date', models.DateTimeField()),
                 ('timestamp', models.DateTimeField(auto_now=True)),
-                ('nemo_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='stocksList.Nemos')),
+                ('nemo_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.PROTECT, to='stocksList.Nemos')),
             ],
         ),
     ]

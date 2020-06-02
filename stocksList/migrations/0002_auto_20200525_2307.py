@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='userstocks',
             name='user_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, primary_key=True, serialize=False, to='stocksList.Users', unique=True),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,
+                                    primary_key=True, serialize=False, to='stocksList.Users', unique=True),
         ),
     ]

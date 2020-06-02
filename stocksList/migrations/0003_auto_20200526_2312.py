@@ -14,14 +14,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='StocksList',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.IntegerField()),
-                ('price', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('tax', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
+                ('price', models.DecimalField(
+                    decimal_places=2, default=0, max_digits=10)),
+                ('tax', models.DecimalField(
+                    decimal_places=2, default=0, max_digits=10)),
                 ('purchase_date', models.DateTimeField()),
                 ('timestamp', models.DateTimeField(auto_now=True)),
-                ('nemo_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='stocksList.Nemos')),
-                ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='stocksList.Users')),
+                ('nemo_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.PROTECT, to='stocksList.Nemos')),
+                ('user_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.PROTECT, to='stocksList.Users')),
             ],
         ),
         migrations.DeleteModel(

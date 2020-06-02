@@ -11,8 +11,10 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 def userStockDetail(request, user_id):
     return HttpResponse("You're looking at user_id %s." % user_id)
+
 
 def userStockInfo(request, user_id):
     response = "You're looking the info of user_id %s."
