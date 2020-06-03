@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from .models import Nemos, Users, StocksList
+from .models import StocksList
 
-admin.site.register(Nemos)
-admin.site.register(Users)
 admin.site.register(StocksList)
