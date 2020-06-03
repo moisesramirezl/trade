@@ -72,10 +72,11 @@ gcloud app deploy
 
 * [Django webapp] - (https://docs.djangoproject.com/es/3.0/intro/tutorial01/)
 * [Django + GCP] - (https://cloud.google.com/python/django/appengine?hl=es-419)
+* [GCP Secret Manager + Python] - (https://cloud.google.com/community/tutorials/secrets-manager-python)
 
 ## TODOS
 
-- Manage secrets
+- Use Local Database
 - Google login
 - Profiles
 - Connect with GCP debugger

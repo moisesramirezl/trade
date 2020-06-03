@@ -1,3 +1,5 @@
+from google.cloud import secretmanager
+
 """
 Django settings for trade project.
 
@@ -116,7 +118,14 @@ pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
 pymysql.install_as_MySQLdb()
 
 # [START db_setup]
-# TODO hide secrets
+# TODO read this project id from env config
+PROJECT_ID = "1033385642776"
+secrets = secretmanager.SecretManagerServiceClient()
+DB_USER = secrets.access_secret_version(
+    "projects/"+PROJECT_ID+"/secrets/trade-db-user/versions/1").payload.data.decode("utf-8")
+DB_PASSWORD = secrets.access_secret_version(
+    "projects/"+PROJECT_ID+"/secrets/trade-db-password/versions/1").payload.data.decode("utf-8")
+
 if os.getenv('GAE_APPLICATION', None):
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
@@ -125,8 +134,8 @@ if os.getenv('GAE_APPLICATION', None):
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'HOST': '/cloudsql/trade-278014:southamerica-east1:tradedb',
-            'USER': 'root',
-            'PASSWORD': 'rootpass',
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
             'NAME': 'trade',
         }
     }
