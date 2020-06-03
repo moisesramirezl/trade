@@ -1,17 +1,22 @@
 {% load socialaccount %}
 <html>
-  <head>
-    <title>Google Registration</title>
-  </head>
-  <body>
+
+<head>
+  <title>Trade</title>
+</head>
+
+<body>
   <h1>Login</h1>
   {% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }} !</p>
-
+  <p>Welcome, {{ user.email }} </p>
+  <ul>
+    <li><a href="/stocksList">Go to stock list</a></li>
+  </ul>
   {% else %}
-  <h1>Logint</h1>
+  <h1>Login</h1>
   <a href="{% provider_login_url 'google' %}">Login with Google</a>
   {% endif %}
 
-  </body>
+</body>
+
 </html>

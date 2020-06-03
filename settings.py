@@ -48,13 +48,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stocksList.apps.StockslistConfig',
     'trade',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'stocksList'
 ]
 
 AUTHENTICATION_BACKENDS = (
