@@ -1,4 +1,93 @@
 {% load socialaccount %}
+
+<style>
+  body {
+      font-family: "Open Sans", sans-serif;
+      line-height: 1.25;
+  }
+
+  table {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      table-layout: fixed;
+  }
+
+  table caption {
+      font-size: 1.5em;
+      margin: .5em 0 .75em;
+  }
+
+  table tr {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: .35em;
+  }
+
+  table th,
+  table td {
+      padding: .625em;
+      text-align: center;
+  }
+
+  table th {
+      font-size: .85em;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 600px) {
+      table {
+          border: 0;
+      }
+
+      table caption {
+          font-size: 1.3em;
+      }
+
+      table thead {
+          border: none;
+          clip: rect(0 0 0 0);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+      }
+
+      table tr {
+          border-bottom: 3px solid #ddd;
+          display: block;
+          margin-bottom: .625em;
+      }
+
+      table td {
+          border-bottom: 1px solid #ddd;
+          display: block;
+          font-size: .8em;
+          text-align: right;
+      }
+
+      table td::before {
+          /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+      }
+
+      table td:last-child {
+          border-bottom: 0;
+      }
+  }
+</style>
+
 <html>
 
 <head>
@@ -9,9 +98,33 @@
   <h1>Login</h1>
   {% if user.is_authenticated %}
   <p>Welcome, {{ user.email }} </p>
-  <ul>
-    <li><a href="/stocksList">Go to stock list</a></li>
-  </ul>
+
+  <div>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nemo</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Tax</th>
+                <th scope="col">Purchase Date</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for stock in user.stocksList.all %}
+            <tr>
+                <td data-label="nemo_id">{{ stock.nemo }}</td>
+                <td data-label="quantity">{{ stock.quantity }}</td>
+                <td data-label="price">{{ stock.price }}</td>
+                <td data-label="tax">{{ stock.tax }}</td>
+                <td data-label="purchase_date">{{ stock.purchase_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
   {% else %}
   <h1>Login</h1>
   <a href="{% provider_login_url 'google' %}">Login with Google</a>
