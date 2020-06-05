@@ -100,9 +100,10 @@
             <tr>
                 <th scope="col">Nemo</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
+                <th scope="col">purchasePrice</th>
                 <th scope="col">Tax</th>
                 <th scope="col">Purchase Date</th>
+                <th scope="col">saleTargetPrice</th>
             </tr>
         </thead>
         <tbody>
@@ -111,9 +112,10 @@
             <tr>
                 <td data-label="nemo_id">{{ stock.nemo }}</td>
                 <td data-label="quantity">{{ stock.quantity }}</td>
-                <td data-label="price">{{ stock.price }}</td>
+                <td data-label="purchasePrice">{{ stock.purchasePrice }}</td>
                 <td data-label="tax">{{ stock.tax }}</td>
                 <td data-label="purchase_date">{{ stock.purchase_date }}</td>
+                <td data-label="saleTargetPrice">{{ stock.saleTargetPrice }}</td>
             </tr>
             {% endfor %}
         </tbody>
