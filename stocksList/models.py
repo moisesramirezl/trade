@@ -12,7 +12,7 @@ class StocksList(models.Model):
     saleTargetPrice = models.DecimalField(
         max_digits=10, decimal_places=2, default=0)
     tax = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    purchase_date = models.DateTimeField()
+    purchaseDate = models.DateField()
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
