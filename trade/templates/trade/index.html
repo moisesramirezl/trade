@@ -1,4 +1,61 @@
 {% load socialaccount %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script>
+    $(function () {
+
+        /* Functions */
+
+        var loadForm = function () {
+            var btn = $(this);
+            $.ajax({
+                url: '/stocksList/create/',
+                type: 'get',
+                dataType: 'json',
+                beforeSend: function () {
+                    $("#modal-stock .modal-content").html("");
+                    $("#modal-stock").modal("show");
+                },
+                success: function (data) {
+                    $("#modal-stock .modal-content").html(data.htmlForm);
+                }
+            });
+        };
+
+        var saveForm = function () {
+            var form = $(this);
+            $.ajax({
+                url: form.attr("action"),
+                data: form.serialize(),
+                type: form.attr("method"),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.formIsValid) {
+                        $("#stock-table tbody").html(data.html_stock_list);
+                        $("#modal-stock").modal("hide");
+                    }
+                    else {
+                        $("#modal-stock .modal-content").html(data.htmlForm);
+                    }
+                }
+            });
+            return false;
+        };
+
+
+        /* Binding */
+
+        // Create book
+        $(".js-create-stock").click(loadForm);
+        $("#modal-stock").on("submit", ".js-stock-create-form", saveForm);
+
+    });
+
+</script>
 
 <style>
     @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
@@ -165,6 +222,7 @@
 
     <body>
 
+
         <div id="sideMenu">
             <h1>Portafolio acciones</h1>
             <ul class="menu">
@@ -218,6 +276,20 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+
+            <p>
+                <button type="button" class="btn btn-primary js-create-stock">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nueva Accion
+                </button>
+            </p>
+
+            <div class="modal fade" id="modal-stock">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    </div>
+                </div>
             </div>
 
             {% else %}
