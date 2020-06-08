@@ -13,7 +13,7 @@
         var loadForm = function () {
             var btn = $(this);
             $.ajax({
-                url: '/stocksList/create/',
+                url: '/stocksList/create/?userId={{user.id}}',
                 type: 'get',
                 dataType: 'json',
                 beforeSend: function () {

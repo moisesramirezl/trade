@@ -23,6 +23,7 @@ def stockCreate(request):
     if request.method == 'POST':
         form = StocksListForm(request.POST)
         if form.is_valid():
+            # TODO Validar que el campo userId del GET es el del usuario logeado
             form.save()
             data['formIsValid'] = True
         else:
@@ -30,7 +31,9 @@ def stockCreate(request):
     else:
         form = StocksListForm()
 
-    form.fields['user'].queryset = User.objects.filter(id=1)
+    # TODO Validar que request.GET.get('userId') sea un campo valido para prevenir sql injection
+    form.fields['user'].queryset = User.objects.filter(
+        id=request.GET.get('userId'))
     context = {'form': form}
     data['htmlForm'] = render_to_string('stocksList/partial_stock_create.html',
                                         context,
