@@ -7,9 +7,12 @@ class StocksList(models.Model):
         User, on_delete=models.CASCADE, related_name="stocksList", null=True)
     nemo = models.CharField(max_length=200)
     quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    purchasePrice = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0)
+    saleTargetPrice = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0)
     tax = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    purchase_date = models.DateTimeField()
+    purchaseDate = models.DateField()
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):

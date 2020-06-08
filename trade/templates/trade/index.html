@@ -1,135 +1,304 @@
 {% load socialaccount %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script>
+    $(function () {
+
+        /* Functions */
+
+        var loadForm = function () {
+            var btn = $(this);
+            $.ajax({
+                url: '/stocksList/create/?userId={{user.id}}',
+                type: 'get',
+                dataType: 'json',
+                beforeSend: function () {
+                    $("#modal-stock .modal-content").html("");
+                    $("#modal-stock").modal("show");
+                },
+                success: function (data) {
+                    $("#modal-stock .modal-content").html(data.htmlForm);
+                }
+            });
+        };
+
+        var saveForm = function () {
+            var form = $(this);
+            $.ajax({
+                url: form.attr("action"),
+                data: form.serialize(),
+                type: form.attr("method"),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.formIsValid) {
+                        $("#stock-table tbody").html(data.html_stock_list);
+                        $("#modal-stock").modal("hide");
+                    }
+                    else {
+                        $("#modal-stock .modal-content").html(data.htmlForm);
+                    }
+                }
+            });
+            return false;
+        };
+
+
+        /* Binding */
+
+        // Create book
+        $(".js-create-stock").click(loadForm);
+        $("#modal-stock").on("submit", ".js-stock-create-form", saveForm);
+
+    });
+
+</script>
 
 <style>
-  body {
-      font-family: "Open Sans", sans-serif;
-      line-height: 1.25;
-  }
+    @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
-  table {
-      border: 1px solid #ccc;
-      border-collapse: collapse;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      table-layout: fixed;
-  }
+    html {
+        height: 100%;
+        font-family: 'Lato', sans-serif;
+    }
 
-  table caption {
-      font-size: 1.5em;
-      margin: .5em 0 .75em;
-  }
+    body {
+        height: 100%;
+        margin: 0;
+        background: linear-gradient(135deg, rgba(65, 131, 155, 1) 0%, rgba(51, 98, 123, 1) 100%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-  table tr {
-      background-color: #f8f8f8;
-      border: 1px solid #ddd;
-      padding: .35em;
-  }
+    * {
+        box-sizing: border-box;
+    }
 
-  table th,
-  table td {
-      padding: .625em;
-      text-align: center;
-  }
+    /* Table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-  table th {
-      font-size: .85em;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-  }
+    th {
+        text-align: left;
+        color: #fff;
+        font-weight: 400;
+        font-size: 13px;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0 10px;
+        padding-bottom: 14px;
+    }
 
-  @media screen and (max-width: 600px) {
-      table {
-          border: 0;
-      }
+    tr:not(:first-child):hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
 
-      table caption {
-          font-size: 1.3em;
-      }
+    td {
+        height: 40px;
+        line-height: 40px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.4);
+        padding: 0 10px;
+    }
 
-      table thead {
-          border: none;
-          clip: rect(0 0 0 0);
-          height: 1px;
-          margin: -1px;
-          overflow: hidden;
-          padding: 0;
-          position: absolute;
-          width: 1px;
-      }
 
-      table tr {
-          border-bottom: 3px solid #ddd;
-          display: block;
-          margin-bottom: .625em;
-      }
+    /*Side menu*/
+    #sideMenu {
+        width: 240px;
+        height: 100%;
+        padding: 30px;
+        border-right: 1px solid #111;
+        display: table-cell;
+        vertical-align: top;
+        color: #fff;
+    }
 
-      table td {
-          border-bottom: 1px solid #ddd;
-          display: block;
-          font-size: .8em;
-          text-align: right;
-      }
+    .menu {
+        list-style: none;
+        margin: 24px 0;
+        padding: 0;
+    }
 
-      table td::before {
-          /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
-          content: attr(data-label);
-          float: left;
-          font-weight: bold;
-          text-transform: uppercase;
-      }
+    .menu li {
+        display: block;
+        height: 30px;
+        width: 100%;
+        line-height: 30px;
+        font-size: 14px;
+        font-weight: 200;
+        color: rgba(255, 255, 255, .6);
+        position: relative;
+    }
 
-      table td:last-child {
-          border-bottom: 0;
-      }
-  }
+    .menu li:hover {
+        color: #239ae3;
+    }
+
+    .menu li:first-child {
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+    }
+
+    #container {
+        display: table;
+        width: 1200px;
+        background: #202b33;
+        margin: 60px auto;
+        border-radius: 4px;
+    }
+
+    /* Content */
+    #content {
+        width: calc(100% - 240px);
+        height: 100%;
+        padding: 25px;
+        display: table-cell;
+    }
+
+    #titleBar {
+        height: 36px;
+        margin-bottom: 30px;
+    }
+
+    #profilePic {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #999;
+        float: right;
+        margin-top: -8px;
+        margin-left: 14px;
+        overflow: hidden;
+    }
+
+    #profilePic img {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 13px;
+        font-weight: 200;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    h2 {
+        float: left;
+        font-size: 19px;
+        font-weight: 200;
+        letter-spacing: 1px;
+        margin: 0 0 19px 0;
+        color: rgba(255, 255, 255, .8);
+    }
+
+    h3 {
+        float: left;
+        color: #fff;
+        font-size: 32px;
+        font-weight: 300;
+        margin: 0;
+        margin-top: 8%;
+        margin-left: 20px;
+        margin-bottom: 6px;
+    }
 </style>
 
 <html>
 
 <head>
-  <title>Trade</title>
+    <title>Trade</title>
 </head>
 
-<body>
-  <h1>Login</h1>
-  {% if user.is_authenticated %}
-  <p>Welcome, {{ user.email }} </p>
+<div id="container">
 
-  <div>
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">Nemo</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Tax</th>
-                <th scope="col">Purchase Date</th>
-            </tr>
-        </thead>
-        <tbody>
+    <body>
 
-            {% for stock in user.stocksList.all %}
-            <tr>
-                <td data-label="nemo_id">{{ stock.nemo }}</td>
-                <td data-label="quantity">{{ stock.quantity }}</td>
-                <td data-label="price">{{ stock.price }}</td>
-                <td data-label="tax">{{ stock.tax }}</td>
-                <td data-label="purchase_date">{{ stock.purchase_date }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+        <div id="sideMenu">
+            <h1>Portafolio acciones</h1>
+            <ul class="menu">
+                <li>Home</li>
+                <li>Dashboard</li>
+                <li>Reportes</li>
+            </ul>
+            <ul class="menu">
+                <li>Cuenta</li>
+                <li>Datos</li>
+                <li>Alarmas</li>
+            </ul>
+        </div>
+
+        <div id="content">
+
+            <div id="titleBar">
+                <h2>Dashboard</h2>
+                <div id="profilePic">
+                    <img src="https://i.pinimg.com/originals/e4/f9/08/e4f908d76e0b0882e381e5a11b3bc1ca.jpg" />
+                </div>
+            </div>
+
+
+            {% if user.is_authenticated %}
+            <h2> {{ user.email }} {{user.id}} </h2>
+
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nemo</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">purchasePrice</th>
+                            <th scope="col">Tax</th>
+                            <th scope="col">Purchase Date</th>
+                            <th scope="col">Sale Target Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for stock in user.stocksList.all %}
+                        <tr>
+                            <td data-label="nemo_id">{{ stock.nemo }}</td>
+                            <td data-label="quantity">{{ stock.quantity }}</td>
+                            <td data-label="purchasePrice">{{ stock.purchasePrice }}</td>
+                            <td data-label="tax">{{ stock.tax }}</td>
+                            <td data-label="purchaseDate">{{ stock.purchaseDate }}</td>
+                            <td contenteditable='true' data-label="saleTargetPrice" >{{ stock.saleTargetPrice }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <p>
+                <button type="button" class="btn btn-primary js-create-stock">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nueva Accion
+                </button>
+            </p>
+
+            <div class="modal fade" id="modal-stock">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <h1>Login</h1>
+            <a href="{% provider_login_url 'google' %}">Login with Google</a>
+            {% endif %}
+        </div>
+
+    </body>
 </div>
-
-  {% else %}
-  <h1>Login</h1>
-  <a href="{% provider_login_url 'google' %}">Login with Google</a>
-  {% endif %}
-
-</body>
 
 </html>
