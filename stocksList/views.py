@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from .forms import StocksListForm
+from django.contrib.auth.models import User
 
 
 @login_required
@@ -19,7 +20,6 @@ def index(request):
 
 def stockCreate(request):
     data = dict()
-
     if request.method == 'POST':
         form = StocksListForm(request.POST)
         if form.is_valid():
@@ -30,6 +30,7 @@ def stockCreate(request):
     else:
         form = StocksListForm()
 
+    form.fields['user'].queryset = User.objects.filter(id=1)
     context = {'form': form}
     data['htmlForm'] = render_to_string('stocksList/partial_stock_create.html',
                                         context,
