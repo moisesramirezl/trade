@@ -9,14 +9,6 @@ def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
     try:
-        import googleclouddebugger
-        googleclouddebugger.enable()
-    except ImportError:
-        pass
-
-    logging.basicConfig(level=logging.INFO)
-
-    try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
