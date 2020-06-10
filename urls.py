@@ -9,5 +9,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('stocksList/', include('stocksList.urls')),
-    url(r'^stocksList/create/$', views.stockCreate, name='stockCreate'),
+    url(r'^stocksList/(?P<userId>\d+)/create/$',
+        views.stockCreate, name='stockCreate'),
+    url(r'^stocksList/(?P<pk>\d+)/update/$',
+        views.stockUpdate, name='stockUpdate'),
 ]
