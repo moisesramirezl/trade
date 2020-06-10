@@ -1,12 +1,9 @@
 $(function () {
 
-    /* Functions */
-
     var loadForm = function (url) {
         var btn = $(this);
         var userId = document.getElementById('userId').value
         $.ajax({
-            //url: '/stocksList/create/?userId=' + userId,
             url: btn.attr("data-url"),
             type: 'get',
             dataType: 'json',

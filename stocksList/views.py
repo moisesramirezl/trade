@@ -28,9 +28,7 @@ def saveStockForm(request, form, templateName, userId):
             # TODO Validar que el campo userId del GET es el del usuario logeado
             form.save()
             data['formIsValid'] = True
-            # stocksList = StocksList.objects.all()
-            # data['htmlStockList'] = render_to_string('stocksList/partial_stock_list.html', {
-            #     'stocksList': stocksList})
+            # TODO aca deberia gatillar que se recargue automaticamente la pagina para reflejar los cambios
         else:
             data['formIsValid'] = False
 
@@ -56,7 +54,7 @@ def stockCreate(request, userId):
 def stockUpdate(request, pk):
     stock = get_object_or_404(StocksList, pk=pk)
     if request.method == 'POST':
-        form = StocksListForm(request.POST, instance=StocksList)
+        form = StocksListForm(request.POST, instance=stock)
     else:
         form = StocksListForm(instance=stock)
     return saveStockForm(request, form, 'stocksList/partial_stock_update.html', stock.user_id)
