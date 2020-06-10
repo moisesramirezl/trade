@@ -1,5 +1,4 @@
-{% load widget_tweaks %}
-<form method="post" action="{% url 'stockCreate' form.instance.id %}" class="js-stock-create-form">
+<form method="post" action="{% url 'stockCreate' form.instance.pk %}" class="js-stock-create-form">
   {% csrf_token %}
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
