@@ -1,24 +1,16 @@
-from django.http import HttpResponse
 from django.template import loader
 from .models import StocksList
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.template.loader import render_to_string
 from .forms import StocksListForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from django.template.loader import render_to_string
 
 
 @login_required
 def index(request):
-    stocksList = StocksList.objects
-    template = loader.get_template('stocksList/index.html')
-    context = {
-        'stocksList': stocksList,
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'stocksList/stocksList.html', {})
 
 
 def saveStockForm(request, form, templateName, userId):

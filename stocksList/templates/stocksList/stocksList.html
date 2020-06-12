@@ -1,0 +1,65 @@
+{% extends "trade/base.html" %}
+
+{% block content %}
+
+{% load socialaccount %}
+
+{% if user.is_authenticated %}
+<div>
+    <table id="stock-table">
+        <thead>
+            <tr>
+                <th scope="col">Nemo</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">purchasePrice</th>
+                <th scope="col">Tax</th>
+                <th scope="col">Purchase Date</th>
+                <th scope="col">Sale Target Price</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for stock in user.stocksList.all %}
+            <tr>
+                <td data-label="nemo_id">{{ stock.nemo }}</td>
+                <td data-label="quantity">{{ stock.quantity }}</td>
+                <td data-label="purchasePrice">{{ stock.purchasePrice }}</td>
+                <td data-label="tax">{{ stock.tax }}</td>
+                <td data-label="purchaseDate">{{ stock.purchaseDate }}</td>
+                <td contenteditable='true' data-label="saleTargetPrice">{{ stock.saleTargetPrice }}</td>
+                <td><button type="button" class="btn btn-warning btn-sm js-update-stock"
+                        data-url="{% url 'stockUpdate' stock.id %}">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center bg-warning">No Stock</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<p>
+
+    <button type="button" class="btn btn-primary js-create-stock" data-url="{% url 'stockCreate' user.id %}">
+
+      <span class="glyphicon glyphicon-plus"></span>
+        Nueva Accion
+    </button>
+</p>
+
+<div class="modal fade" id="modal-stock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+{% else %}
+<a href="{% provider_login_url 'google' %}">Login with Google</a>
+{% endif %}
+
+{% endblock %}

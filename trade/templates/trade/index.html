@@ -1,35 +1,13 @@
-{% load socialaccount %}
-<!-- TODO todos estos js deberían pre descargarse antes y estar locales-->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+{% extends "trade/base.html" %}
 
+{% block title %}<title>Principal</title>{% endblock %}
 
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'trade/style.css' %}">
-<script type="text/javascript" src="{% static 'trade/form.js' %}"></script>
-
-<html>
-
-
-<head>
-    <title>Trade</title>
-</head>
-
-<div id="container">
-
-    <body>
-
-
+{% block sidebar %}
         <div id="sideMenu">
             <h1>Portafolio acciones</h1>
             <ul class="menu">
-                <li>Home</li>
-                <li>Dashboard</li>
+                <li>Principal</li>
+                <li><a href="{% url 'index' %}">Resumen</a></li>
                 <li>Reportes</li>
             </ul>
             <ul class="menu">
@@ -38,84 +16,8 @@
                 <li>Alarmas</li>
             </ul>
         </div>
+{% endblock %}
 
-        <div id="content">
+{% block content %}
 
-            <div id="titleBar">
-                <h2>Dashboard</h2>
-                <div id="profilePic">
-                    <img src="https://i.pinimg.com/originals/e4/f9/08/e4f908d76e0b0882e381e5a11b3bc1ca.jpg" />
-                </div>
-            </div>
-
-
-            {% if user.is_authenticated %}
-            <h2> {{ user.email }} {{user.id}} </h2>
-            <input type="hidden" id="userId" name="userId" value={{user.id}}>
-
-            <div>
-                <table id="stock-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nemo</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">purchasePrice</th>
-                            <th scope="col">Tax</th>
-                            <th scope="col">Purchase Date</th>
-                            <th scope="col">Sale Target Price</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {% for stock in user.stocksList.all %}
-                        <tr>
-                            <td data-label="nemo_id">{{ stock.nemo }}</td>
-                            <td data-label="quantity">{{ stock.quantity }}</td>
-                            <td data-label="purchasePrice">{{ stock.purchasePrice }}</td>
-                            <td data-label="tax">{{ stock.tax }}</td>
-                            <td data-label="purchaseDate">{{ stock.purchaseDate }}</td>
-                            <td contenteditable='true' data-label="saleTargetPrice">{{ stock.saleTargetPrice }}</td>
-                            <td><button type="button" class="btn btn-warning btn-sm js-update-stock"
-                                    data-url="{% url 'stockUpdate' stock.id %}">
-                                    <span class="glyphicon glyphicon-pencil"></span> Edit
-                                </button></td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="8" class="text-center bg-warning">No Stock</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <p>
-
-                <button type="button" class="btn btn-primary js-create-stock" data-url="{% url 'stockCreate' user.id %}">
-
-                  <span class="glyphicon glyphicon-plus"></span>
-                    Nueva Accion
-                </button>
-            </p>
-
-
-
-
-            <div class="modal fade" id="modal-stock">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    </div>
-                </div>
-            </div>
-
-            {% else %}
-            <h1>Login</h1>
-            <a href="{% provider_login_url 'google' %}">Login with Google</a>
-            {% endif %}
-        </div>
-
-    </body>
-</div>
-
-</html>
+{% endblock %}
