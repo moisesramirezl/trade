@@ -35,7 +35,7 @@ SECRET_KEY = 'c=2xeuv@w01ug@2#6+_el1jz5s5lug*q)5e$$pelyi=#kh7(+1'
 DEBUG = True
 
 ALLOWED_HOSTS = ['trade-278014.rj.r.appspot.com', '127.0.0.1',
-                 '20200526t105259-dot-trade-278014.rj.r.appspot.com']
+                 '20200526t105259-dot-trade-278014.rj.r.appspot.com', '20200612t183456-dot-trade-278014.rj.r.appspot.com']
 
 # For google login
 SITE_ID = 2
