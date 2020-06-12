@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<!-- TODO todos estos js deberían pre descargarse antes y estar locales-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'trade/style.css' %}">
+<script type="text/javascript" src="{% static 'trade/form.js' %}"></script>
+
+<head>
+    {% block title %}<title>Home</title>{% endblock %}
+</head>
+
+<div id="container">
+
+    <body>
+
+      {% block sidebar %}
+        <div id="sideMenu">
+            <h1>Portafolio acciones</h1>
+            <ul class="menu">
+                <li>Principal</li>
+                <li><li><a href="{% url 'index' %}">Resumen</a></li></li>
+                <li>Reportes</li>
+            </ul>
+            <ul class="menu">
+                <li>Cuenta</li>
+                <li>Datos</li>
+                <li>Alarmas</li>
+            </ul>
+        </div>
+      {% endblock %}
+
+        <div id="content">
+
+            <div id="titleBar">
+              {% block titleBar %}<h2>Principal</h2>{% endblock %}
+                <div id="profilePic">
+                    <img src="https://i.pinimg.com/originals/e4/f9/08/e4f908d76e0b0882e381e5a11b3bc1ca.jpg" />
+                </div>
+            </div>
+
+            {% if user.is_authenticated %}
+            <h2> Bienvenido {{ user.email }} </h2>
+            <input type="hidden" id="userId" name="userId" value={{user.id}}>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </body>
+</div>
+
+</html>
