@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'stocksList',
-    'widget_tweaks'
+    'widget_tweaks',
+    'stocksBalance'
 ]
 
 AUTHENTICATION_BACKENDS = (

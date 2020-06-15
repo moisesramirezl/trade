@@ -1,0 +1,40 @@
+{% extends "trade/base.html" %}
+
+{% block content %}
+
+{% load socialaccount %}
+
+{% if user.is_authenticated %}
+<div>
+    <p>Fecha actualizacion:</p>
+    <table id="stock-table">
+        <thead>
+            <tr>
+                <th scope="col">Nemo</th>
+                <th scope="col">Valor Actual</th>
+                <th scope="col">Variacion porcentual</th>
+                <th scope="col">Variacion pesos</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for stock in user.stocksList.all %}
+            <tr>
+                <td data-label="nemo_id">{{ stock.nemo }}</td>
+                <td data-label="currentValue"></td>
+                <td data-label="currentPercentualVariation"></td>
+                <td data-label="currentMonetariaVariation"></td>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center bg-warning">No Stock</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+<a href="{% provider_login_url 'google' %}">Login with Google</a>
+{% endif %}
+
+{% endblock %}

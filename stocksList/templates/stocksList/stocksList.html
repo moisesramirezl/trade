@@ -27,7 +27,7 @@
                 <td data-label="purchasePrice">{{ stock.purchasePrice }}</td>
                 <td data-label="tax">{{ stock.tax }}</td>
                 <td data-label="purchaseDate">{{ stock.purchaseDate }}</td>
-                <td contenteditable='true' data-label="saleTargetPrice">{{ stock.saleTargetPrice }}</td>
+                <td data-label="saleTargetPrice">{{ stock.saleTargetPrice }}</td>
                 <td><button type="button" class="btn btn-warning btn-sm js-update-stock"
                         data-url="{% url 'stockUpdate' stock.id %}">
                         <span class="glyphicon glyphicon-pencil"></span> Edit
