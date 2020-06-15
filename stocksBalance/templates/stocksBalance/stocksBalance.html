@@ -5,6 +5,9 @@
 {% load socialaccount %}
 
 {% if user.is_authenticated %}
+
+{% load app_filters %}
+
 <div>
     <p>Fecha actualizacion:</p>
     <table id="stock-table">
@@ -21,7 +24,7 @@
             {% for stock in user.stocksList.all %}
             <tr>
                 <td data-label="nemo_id">{{ stock.nemo }}</td>
-                <td data-label="currentValue"></td>
+                <td data-label="currentValue">{{ nemos|get_item:stock.nemo }}</td>
                 <td data-label="currentPercentualVariation"></td>
                 <td data-label="currentMonetariaVariation"></td>
             {% empty %}

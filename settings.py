@@ -139,6 +139,14 @@ if os.getenv('GAE_APPLICATION', None):
             'USER': DB_USER,
             'PASSWORD': DB_PASSWORD,
             'NAME': 'trade',
+        },
+        'historical-nemos': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/trade-278014:southamerica-east1:historical-nemos',
+            'NAME': 'data',
+            'ENGINE': 'django.db.backends.mysql',
+            'USER': 'historical-nemos-user',
+            'PASSWORD': 'historical-nemos-user-pass'
         }
     }
 else:
@@ -156,6 +164,14 @@ else:
             'NAME': 'trade',
             'USER': 'root',
             'PASSWORD': 'rootpass',
+        },
+        'historical-nemos': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3307',
+            'NAME': 'data',
+            'USER': 'historical-nemos-user',
+            'PASSWORD': 'historical-nemos-user-pass',
         }
     }
 # [END db_setup]
