@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'trade',
     'django.contrib.sites',
     'allauth',
@@ -58,7 +59,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'stocksList',
     'widget_tweaks',
-    'stocksBalance'
+    'stocksBalance',
+    'mathfilters'
 ]
 
 AUTHENTICATION_BACKENDS = (

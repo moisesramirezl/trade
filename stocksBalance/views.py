@@ -15,5 +15,6 @@ def stocksBalance(request):
         getObj = Nemos.objects.using(
             'historical-nemos').filter(nemo=nemo.get('nemo')).order_by('-registerdatetime')[0]
         lastNemosPrice[nemo.get('nemo')] = getObj.lastprice
+        lastUpdated = getObj.registerdatetime
 
-    return render(request, 'stocksBalance/stocksBalance.html', {"nemos": lastNemosPrice})
+    return render(request, 'stocksBalance/stocksBalance.html', {"nemos": lastNemosPrice, "lastUpdated": lastUpdated})

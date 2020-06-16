@@ -75,9 +75,10 @@ gcloud app deploy
 * [GCP Secret Manager + Python] - (https://cloud.google.com/community/tutorials/secrets-manager-python)
 
 ## TODOS
+- Format numbers to lang spec (comma separator, currency symbol..)
+- Move math logic from template to view
 - Logging in gcp (info, error, warn...)
 - Serve static files from GCP bucket
 - Create delete accion buton
 - Use Local Database
 - Profiles
-- Connect with GCP debugger

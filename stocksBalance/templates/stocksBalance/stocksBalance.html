@@ -6,16 +6,19 @@
 
 {% if user.is_authenticated %}
 
-{% load app_filters %}
+{% load appFilters %}
+{% load mathfilters %}
+{% load humanize %}
 
+{% block titleBar %}Balance{% endblock %}
 <div>
-    <p>Fecha actualizacion:</p>
     <table id="stock-table">
         <thead>
             <tr>
                 <th scope="col">Nemo</th>
                 <th scope="col">Valor Actual</th>
-                <th scope="col">Variacion porcentual</th>
+                <th scope="col">Valor Original</th>
+                <th scope="col">Monto actual</th>
                 <th scope="col">Variacion pesos</th>
             </tr>
         </thead>
@@ -24,10 +27,31 @@
             {% for stock in user.stocksList.all %}
             <tr>
                 <td data-label="nemo_id">{{ stock.nemo }}</td>
-                <td data-label="currentValue">{{ nemos|get_item:stock.nemo }}</td>
-                <td data-label="currentPercentualVariation"></td>
-                <td data-label="currentMonetariaVariation"></td>
-            {% empty %}
+                <td data-label="currentValue">
+                    {% with currentValue=nemos|getItem:stock.nemo %}
+                        {{ currentValue|toFloat|floatformat:2 }}
+                    {% endwith %}
+                </td>
+                <td data-label="originalValue">
+                    {{ stock.purchasePrice|floatformat:2 }}
+                </td>
+                <td data-label="currentTotal">
+                    {% with currentValue=nemos|getItem:stock.nemo %}
+                        {% with floatCurrentValue=currentValue|toFloat %}
+                            {{ floatCurrentValue|mul:stock.quantity|floatformat:0 }}
+                        {% endwith %}
+                    {% endwith %}
+                </td>
+                <td data-label="currentMonetariaVariation">
+                    {% with currentValue=nemos|getItem:stock.nemo %}
+                        {% with floatCurrentValue=currentValue|toFloat floatOriginalValue=stock.purchasePrice%}
+                            {% with floatTotalValue=floatCurrentValue|mul:stock.quantity floatOriginalAmmount=floatOriginalValue|mul:stock.quantity %}
+                                {{ floatTotalValue|sub:floatOriginalAmmount|floatformat:0 }}
+                            {% endwith %}
+                        {% endwith %}
+                    {% endwith %}
+                </td>
+                {% empty %}
             <tr>
                 <td colspan="8" class="text-center bg-warning">No Stock</td>
             </tr>
@@ -39,5 +63,9 @@
 {% else %}
 <a href="{% provider_login_url 'google' %}">Login with Google</a>
 {% endif %}
+
+
+<h2>Fecha actualizacion: {{ lastUpdated }}</h2>
+
 
 {% endblock %}
