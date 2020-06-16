@@ -27,8 +27,8 @@
             <h1>Portafolio acciones</h1>
             <ul class="menu">
                 <li>Principal</li>
-                <li><li><a href="{% url 'index' %}">Resumen</a></li></li>
-                <li>Reportes</li>
+                <li><a href="{% url 'index' %}">Resumen</a></li>
+                <li><a href="{% url 'stocksBalance' %}">Balance</a></li>
             </ul>
             <ul class="menu">
                 <li>Cuenta</li>
@@ -41,7 +41,7 @@
         <div id="content">
 
             <div id="titleBar">
-              {% block titleBar %}<h2>Principal</h2>{% endblock %}
+              <h2>{% block titleBar %}Principal{% endblock %}</h2>
                 <div id="profilePic">
                     <img src="https://i.pinimg.com/originals/e4/f9/08/e4f908d76e0b0882e381e5a11b3bc1ca.jpg" />
                 </div>
