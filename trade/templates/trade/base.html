@@ -11,11 +11,14 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
+
+
 <link rel="stylesheet" type="text/css" href="{% static 'trade/style.css' %}">
 <script type="text/javascript" src="{% static 'trade/form.js' %}"></script>
 
 <head>
-    {% block title %}<title>Home</title>{% endblock %}
+    <title>{% block title %}Home{% endblock %}</title>
 </head>
 
 <div id="container">
@@ -29,11 +32,11 @@
                 <li>Principal</li>
                 <li><a href="{% url 'index' %}">Resumen</a></li>
                 <li><a href="{% url 'stocksBalance' %}">Balance</a></li>
+                <li>Alarmas</li>
             </ul>
             <ul class="menu">
-                <li>Cuenta</li>
-                <li>Datos</li>
-                <li>Alarmas</li>
+                <li>Analisis</li>
+                <li><a href="{% url 'stockData' %}">Datos</a></li>
             </ul>
         </div>
       {% endblock %}

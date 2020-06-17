@@ -1,0 +1,10 @@
+{% extends "trade/base.html" %}
+{% load static %}
+{% block content %}
+
+          {{ div | safe }}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.4.0/bokeh.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bokeh/1.4.0/bokeh-widgets.min.js"></script>
+{{ script | safe }}
+{% endblock %}

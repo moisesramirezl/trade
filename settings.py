@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'stocksList',
     'widget_tweaks',
     'stocksBalance',
-    'mathfilters'
+    'mathfilters',
+    'stockData'
 ]
 
 AUTHENTICATION_BACKENDS = (
