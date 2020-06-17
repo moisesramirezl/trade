@@ -17,6 +17,8 @@ urlpatterns = [
         stocksBalanceView.stocksBalance, name='stocksBalance'),
     url(r'^stockData/$',
         stockDataView.stockData, name='stockData'),
+    url(r'^stockPriceBasicStats/$',
+        stockDataView.stockPriceBasicStats, name='stockPriceBasicStats'),
     url(r'^stocksList/(?P<userId>\d+)/create/$',
         stocksListView.stockCreate, name='stockCreate'),
     url(r'^stocksList/(?P<pk>\d+)/update/$',
