@@ -19,7 +19,7 @@
                 <th scope="col" class="w3-white">Valor Actual</th>
                 <th scope="col" class="w3-white">Valor Original</th>
                 <th scope="col" class="w3-white">Monto actual</th>
-                <th scope="col" class="w3-white">Tax</th>
+                <th scope="col" class="w3-white">Tax (in+out)</th>
                 <th scope="col" class="w3-white">Variacion pesos</th>
             </tr>
         </thead>
@@ -45,10 +45,12 @@
                 </td>
                 <td data-label="tax">
                     {% with currentValue=nemos|getItem:stock.nemo %}
-                        {% with floatCurrentValue=currentValue|toFloat %}
-                            {% with floatTotalValue=floatCurrentValue|mul:stock.quantity %}
-                                {% with taxAmmount=floatTotalValue|mul:stock.tax|div:100 %}
-                                    {{ taxAmmount|floatformat:0 }}
+                        {% with floatCurrentValue=currentValue|toFloat floatOriginalValue=stock.purchasePrice %}
+                            {% with floatTotalValue=floatCurrentValue|mul:stock.quantity floatOriginalAmmount=floatOriginalValue|mul:stock.quantity %}
+                                {% with saleTaxAmmount=floatTotalValue|mul:stock.tax|div:100 purchaseTaxAmmount=floatOriginalAmmount|mul:stock.tax|div:100 %}
+                                    {% with taxAmmount=saleTaxAmmount|add:purchaseTaxAmmount %}
+                                        {{ taxAmmount|floatformat:0 }}
+                                    {% endwith %}
                                 {% endwith %}
                             {% endwith %}
                         {% endwith %}
@@ -56,10 +58,10 @@
                 </td>
                 <td data-label="currentMonetariaVariation">
                     {% with currentValue=nemos|getItem:stock.nemo %}
-                        {% with floatCurrentValue=currentValue|toFloat floatOriginalValue=stock.purchasePrice%}
+                        {% with floatCurrentValue=currentValue|toFloat floatOriginalValue=stock.purchasePrice %}
                             {% with floatTotalValue=floatCurrentValue|mul:stock.quantity floatOriginalAmmount=floatOriginalValue|mul:stock.quantity %}
-                                {% with saleTax=floatTotalValue|mul:stock.tax|div:100 %}
-                                    {% with floatTotalValue=floatTotalValue|sub:saleTax %}
+                                {% with saleTaxAmmount=floatTotalValue|mul:stock.tax|div:100 purchaseTaxAmmount=floatOriginalAmmount|mul:stock.tax|div:100 %}
+                                    {% with floatTotalValue=floatTotalValue|sub:saleTaxAmmount|sub:purchaseTaxAmmount %}
                                         {{ floatTotalValue|sub:floatOriginalAmmount|floatformat:0 }}
                                     {% endwith %}
                                 {% endwith %}

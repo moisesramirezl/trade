@@ -75,6 +75,7 @@ gcloud app deploy
 * [GCP Secret Manager + Python] - (https://cloud.google.com/community/tutorials/secrets-manager-python)
 
 ## TODOS
+- Substract Trader/Bank daily fixed cost from the profit value in the Balance view
 - Format numbers to lang spec (comma separator, currency symbol..)
 - Move math logic from template to view
 - Logging in gcp (info, error, warn...)
